@@ -9,11 +9,10 @@ import androidx.annotation.NonNull
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.recyclerview.widget.RecyclerView
 import com.cognizant.app.skills.R
+import com.cognizant.app.skills.data.ConsultantResponse
 import com.cognizant.app.skills.model.Consultant
 
-class ConsultantsAdapter(): RecyclerView.Adapter<ConsultantsAdapter.ViewHolder>() {
-
-    var consultantList: MutableList<Consultant> = mutableListOf()
+class ConsultantsAdapter(private val consultants: List<ConsultantResponse>): RecyclerView.Adapter<ConsultantsAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View): RecyclerView.ViewHolder(view) {
         var avatarView: ImageView = view.findViewById(R.id.avatar)
@@ -28,10 +27,10 @@ class ConsultantsAdapter(): RecyclerView.Adapter<ConsultantsAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        var item = consultantList[position]
-        holder.avatarView!!.setImageResource(getDrawable(item.avatar))
+        var item = consultants[position]
+        holder.avatarView!!.setImageResource(getDrawable(AvatarPicker().pick()))
         holder.name!!.text = item.firstName + " " + item.lastName
-        holder.position!!.text = item.position
+        holder.position!!.text = item.designation
     }
 
     fun getDrawable(avatar: Int): Int {
@@ -59,6 +58,12 @@ class ConsultantsAdapter(): RecyclerView.Adapter<ConsultantsAdapter.ViewHolder>(
     }
 
     override fun getItemCount(): Int {
-        return consultantList.size
+        return consultants.size
+    }
+}
+
+class AvatarPicker {
+    fun pick(): Int {
+        return (1..6).random()
     }
 }

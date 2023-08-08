@@ -5,8 +5,9 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Consultant(
-    var avatar: Int,
+    var cognizantId: String,
+    var avatar: String,
     var firstName: String,
     var lastName: String,
-    var position: String
+    var designation: String
 ): Parcelable
