@@ -10,5 +10,9 @@ data class ConsultantResponse(
     @SerializedName("lastName")
     var lastName: String,
     @SerializedName("designation")
-    var designation: String
+    var designation: String,
+    @SerializedName("emailAddress")
+    var emailAddress: String,
+    @SerializedName("cognizantId")
+    var cognizantId: Int,
 )
