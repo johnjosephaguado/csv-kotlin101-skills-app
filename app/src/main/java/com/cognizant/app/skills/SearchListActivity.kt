@@ -1,5 +1,6 @@
 package com.cognizant.app.skills
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.inputmethod.EditorInfo
@@ -52,6 +53,12 @@ class SearchListActivity: AppCompatActivity() {
             if(response.isSuccessful) {
                 response.body()?.let {
                     var consultantAdapter = ConsultantsAdapter(it)
+                    consultantAdapter.setOnClickListener { consultantId ->
+                        Log.d("hey", "hey")
+                        val intent = Intent(this@SearchListActivity, ViewProfileActivity::class.java)
+                        intent.putExtra(ViewProfileActivity.CONSULTANT_ID, consultantId)
+                        startActivity(intent)
+                    }
                     binding.listview.apply {
                         adapter = consultantAdapter
                         setHasFixedSize(true)
@@ -74,6 +81,12 @@ class SearchListActivity: AppCompatActivity() {
                 if(response.isSuccessful) {
                     response.body()?.let {
                         var consultantAdapter = ConsultantsAdapter(it)
+                        consultantAdapter.setOnClickListener { consultantId ->
+                            Log.d("hey", "hey")
+                            val intent = Intent(this@SearchListActivity, ViewProfileActivity::class.java)
+                            intent.putExtra(ViewProfileActivity.CONSULTANT_ID, consultantId)
+                            startActivity(intent)
+                        }
                         binding.listview.apply {
                             adapter = consultantAdapter
                             setHasFixedSize(true)

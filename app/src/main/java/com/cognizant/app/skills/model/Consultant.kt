@@ -5,7 +5,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class Consultant(
-    var cognizantId: String,
+    var cognizantId: Int,
     var avatar: String,
     var firstName: String,
     var lastName: String,
