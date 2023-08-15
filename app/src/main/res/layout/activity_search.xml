@@ -25,12 +25,17 @@
             app:hintEnabled="false"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:startIconDrawable="@drawable/search"
+            app:startIconTint="@color/black"
+            app:endIconMode="clear_text"
+            android:padding="0dp"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/searchInput"
-                android:hint="Search ..."
-                android:textSize="14dp"
+                android:hint="Search by skills..."
+                android:textSize="12dp"
+                android:padding="0dp"
                 android:inputType="text"
                 android:focusedByDefault="false"
                 android:imeActionLabel="Search by skills"

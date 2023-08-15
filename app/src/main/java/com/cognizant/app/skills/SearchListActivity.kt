@@ -2,7 +2,6 @@ package com.cognizant.app.skills
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.TextView
@@ -12,6 +11,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.cognizant.app.skills.adapter.ConsultantsAdapter
+import com.cognizant.app.skills.data.ConsultantResponse
 import com.cognizant.app.skills.data.api.ConsultantInterface
 import com.cognizant.app.skills.data.api.RetrofitClient
 import com.cognizant.app.skills.databinding.ActivitySearchBinding
@@ -35,7 +35,6 @@ class SearchListActivity: AppCompatActivity() {
         searchInput.setOnEditorActionListener { v, actionId, event ->
             return@setOnEditorActionListener when(actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
-                    Log.d("action search", v.text.toString())
                     searchConsultants(v.text.toString())
                     true
                 }
@@ -45,6 +44,20 @@ class SearchListActivity: AppCompatActivity() {
         getConsultants()
     }
 
+    private fun displayResults(results: List<ConsultantResponse>) {
+        var consultantAdapter = ConsultantsAdapter(results)
+        consultantAdapter.setOnClickListener { consultantId ->
+            val intent = Intent(this@SearchListActivity, ViewProfileActivity::class.java)
+            intent.putExtra(ViewProfileActivity.CONSULTANT_ID, consultantId)
+            startActivity(intent)
+        }
+        binding.listview.apply {
+            adapter = consultantAdapter
+            setHasFixedSize(true)
+        }
+        searchCount.text = "we found " + results.size + " consultant(s)"
+    }
+
     private fun searchConsultants(skill: String) {
         val retrofitClient = RetrofitClient.getInstance()
         val consultantService = retrofitClient.create(ConsultantInterface::class.java)
@@ -52,23 +65,11 @@ class SearchListActivity: AppCompatActivity() {
             var response = consultantService.searchConsultantsBySkill(skill)
             if(response.isSuccessful) {
                 response.body()?.let {
-                    var consultantAdapter = ConsultantsAdapter(it)
-                    consultantAdapter.setOnClickListener { consultantId ->
-                        Log.d("hey", "hey")
-                        val intent = Intent(this@SearchListActivity, ViewProfileActivity::class.java)
-                        intent.putExtra(ViewProfileActivity.CONSULTANT_ID, consultantId)
-                        startActivity(intent)
-                    }
-                    binding.listview.apply {
-                        adapter = consultantAdapter
-                        setHasFixedSize(true)
-                    }
+                    displayResults(it)
                     searchLabel.text = "Search results for " + skill
-                    searchCount.text = "we found " + it.size + " consultant(s)"
                 }
             }
         }
-
     }
 
     private fun getConsultants() {
@@ -80,20 +81,8 @@ class SearchListActivity: AppCompatActivity() {
                 var response = consultantService.getConsultants()
                 if(response.isSuccessful) {
                     response.body()?.let {
-                        var consultantAdapter = ConsultantsAdapter(it)
-                        consultantAdapter.setOnClickListener { consultantId ->
-                            Log.d("hey", "hey")
-                            val intent = Intent(this@SearchListActivity, ViewProfileActivity::class.java)
-                            intent.putExtra(ViewProfileActivity.CONSULTANT_ID, consultantId)
-                            startActivity(intent)
-                        }
-                        binding.listview.apply {
-                            adapter = consultantAdapter
-                            setHasFixedSize(true)
-                        }
-                        searchCount.text = "we found " + it.size + " consultant(s)"
+                        displayResults(it)
                     }
-                    Log.d("API response", "${response.body()}")
                 }
             }
         }
