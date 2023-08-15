@@ -31,6 +31,17 @@ class ConsultantsAdapter(private val consultants: List<ConsultantResponse>): Rec
         holder.avatarView!!.setImageResource(getDrawable(AvatarPicker().pick()))
         holder.name!!.text = item.firstName + " " + item.lastName
         holder.position!!.text = item.designation
+        holder.itemView.apply {
+            setOnClickListener {
+                onClickListener?.let { it(item.cognizantId) }
+            }
+        }
+    }
+
+    private var onClickListener: ((consultantId: Int) -> Unit)? = null
+
+    fun setOnClickListener(listener: (consultantId: Int) -> Unit) {
+        onClickListener = listener
     }
 
     fun getDrawable(avatar: Int): Int {

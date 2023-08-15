@@ -21,11 +21,14 @@ class ViewProfileActivity: AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityProfileBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        val consultantId = intent.getIntExtra(CONSULTANT_ID, 0)
         name = findViewById(R.id.name)
         position = findViewById(R.id.position)
         email = findViewById(R.id.email)
-        viewConsultantInfo(2269180)
-        viewConsultantSkills(2269180)
+        if(consultantId > 0) {
+            viewConsultantInfo(consultantId)
+            viewConsultantSkills(consultantId)
+        }
     }
 
     private fun viewConsultantInfo(consultantId: Int) {
@@ -58,6 +61,10 @@ class ViewProfileActivity: AppCompatActivity() {
                 }
             }
         }
+    }
+
+    companion object {
+        const val CONSULTANT_ID = "CONSULTANT_ID"
     }
 }
 

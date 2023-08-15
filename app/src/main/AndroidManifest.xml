@@ -16,7 +16,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".ViewProfileActivity"
+            android:name=".SearchListActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.SkillsApp">
@@ -25,6 +25,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ViewProfileActivity" />
     </application>
 
 </manifest>
