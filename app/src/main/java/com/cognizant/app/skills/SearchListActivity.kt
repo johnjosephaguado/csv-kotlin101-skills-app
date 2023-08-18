@@ -33,14 +33,16 @@ class SearchListActivity: AppCompatActivity() {
         searchCount = findViewById(R.id.searchCount)
         searchInput = findViewById(R.id.searchInput)
         searchInput.setOnEditorActionListener { v, actionId, event ->
-            return@setOnEditorActionListener when(actionId) {
+            return@setOnEditorActionListener when (actionId) {
                 EditorInfo.IME_ACTION_SEARCH -> {
                     searchConsultants(v.text.toString())
                     true
                 }
+
                 else -> false
             }
         }
+
         getConsultants()
     }
 

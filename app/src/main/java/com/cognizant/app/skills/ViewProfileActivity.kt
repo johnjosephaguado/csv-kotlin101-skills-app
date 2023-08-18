@@ -1,6 +1,8 @@
 package com.cognizant.app.skills
 
+import android.content.Intent
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
@@ -9,13 +11,14 @@ import com.cognizant.app.skills.data.api.ConsultantInterface
 import com.cognizant.app.skills.data.api.RetrofitClient
 import com.cognizant.app.skills.databinding.ActivityProfileBinding
 import kotlinx.coroutines.launch
-
 class ViewProfileActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
     private lateinit var name: TextView
     private lateinit var position: TextView
     private lateinit var email: TextView
+    private lateinit var btnAddSkills: Button
+    private var allowEditing = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,9 +28,16 @@ class ViewProfileActivity: AppCompatActivity() {
         name = findViewById(R.id.name)
         position = findViewById(R.id.position)
         email = findViewById(R.id.email)
+        btnAddSkills = findViewById(R.id.btnAddSkill)
+
         if(consultantId > 0) {
             viewConsultantInfo(consultantId)
             viewConsultantSkills(consultantId)
+        }
+
+        btnAddSkills.setOnClickListener {
+            val intent = Intent(this@ViewProfileActivity, SkillsListActivity::class.java)
+            startActivity(intent)
         }
     }
 
@@ -67,4 +77,5 @@ class ViewProfileActivity: AppCompatActivity() {
         const val CONSULTANT_ID = "CONSULTANT_ID"
     }
 }
+
 
