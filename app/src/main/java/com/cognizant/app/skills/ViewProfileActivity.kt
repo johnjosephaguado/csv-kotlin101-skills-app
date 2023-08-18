@@ -7,7 +7,9 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.cognizant.app.skills.adapter.SkillsAdapter
+import com.cognizant.app.skills.data.LevelsResponse
 import com.cognizant.app.skills.data.api.ConsultantInterface
+import com.cognizant.app.skills.data.api.LevelsInterface
 import com.cognizant.app.skills.data.api.RetrofitClient
 import com.cognizant.app.skills.databinding.ActivityProfileBinding
 import kotlinx.coroutines.launch
@@ -19,6 +21,7 @@ class ViewProfileActivity: AppCompatActivity() {
     private lateinit var email: TextView
     private lateinit var btnAddSkills: Button
     private var allowEditing = false
+    private lateinit var levels: List<LevelsResponse>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,6 +37,8 @@ class ViewProfileActivity: AppCompatActivity() {
             viewConsultantInfo(consultantId)
             viewConsultantSkills(consultantId)
         }
+
+        getLevels()
 
         btnAddSkills.setOnClickListener {
             val intent = Intent(this@ViewProfileActivity, SkillsListActivity::class.java)
@@ -68,6 +73,22 @@ class ViewProfileActivity: AppCompatActivity() {
                         adapter = consultantAdapter
                         setHasFixedSize(true)
                     }
+                }
+            }
+        }
+    }
+
+    private fun getLevels() {
+        val retrofitClient = RetrofitClient.getInstance()
+        val levelsService = retrofitClient.create(LevelsInterface::class.java)
+        lifecycleScope.launch {
+            var response = levelsService.getLevels()
+            if(response.isSuccessful) {
+                response.body()?.let {
+                    levels = it
+
+                    val levelDialog = LevelsFragment(levels, this@ViewProfileActivity)
+                    levelDialog.show(supportFragmentManager, "test")
                 }
             }
         }
