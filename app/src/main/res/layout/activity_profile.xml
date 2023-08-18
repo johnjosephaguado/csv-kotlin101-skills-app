@@ -101,7 +101,13 @@
                 </androidx.cardview.widget.CardView>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <androidx.recyclerview.widget.RecyclerView
+        <Button
+            android:id="@+id/btnAddSkill"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Add Skills" />
+
+        <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listview"
                 android:padding="8dp"
                 android:layout_width="match_parent"
