@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName
 
 data class SkillsTypeResponse(
     @SerializedName("typeId")
-    var typeId: Int,
+    var id: Int,
     @SerializedName("description")
     var description: String,
 )
