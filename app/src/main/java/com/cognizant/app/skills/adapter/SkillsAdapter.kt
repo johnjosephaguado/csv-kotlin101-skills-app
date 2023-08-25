@@ -27,10 +27,31 @@ class SkillsAdapter(private val skills: List<ConsultantSkillsResponse>): Recycle
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         var item = skills[position]
-        holder.name!!.text = item.skillName
+
+        val level = item.levelName.let {
+            if (it.isNullOrEmpty()) {
+                ""
+            } else {
+                ": $it"
+            }
+        }
+
+        holder.name!!.text = item.skillName + level
+
+        holder.itemView.apply {
+            setOnClickListener {
+                onClickListener?.let { it(item) }
+            }
+        }
     }
 
     override fun getItemCount(): Int {
         return skills.size
+    }
+
+    private var onClickListener: ((skill: ConsultantSkillsResponse) -> Unit)? = null
+
+    fun setOnClickListener(listener: (skill: ConsultantSkillsResponse) -> Unit) {
+        onClickListener = listener
     }
 }
