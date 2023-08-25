@@ -58,6 +58,11 @@ class ViewProfileActivity
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        viewConsultantSkills(consultantId)
+    }
+
     private fun viewConsultantInfo(consultantId: Int) {
         val retrofitClient = RetrofitClient.getInstance()
         val consultantService = retrofitClient.create(ConsultantInterface::class.java)
