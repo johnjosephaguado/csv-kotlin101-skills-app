@@ -2,17 +2,21 @@ package com.cognizant.app.skills
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Parcelable
 import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.cognizant.app.skills.adapter.SkillsAdapter
+import com.cognizant.app.skills.data.ConsultantSkillsResponse
 import com.cognizant.app.skills.data.LevelsResponse
 import com.cognizant.app.skills.data.api.ConsultantInterface
 import com.cognizant.app.skills.data.api.LevelsInterface
 import com.cognizant.app.skills.data.api.RetrofitClient
 import com.cognizant.app.skills.databinding.ActivityProfileBinding
 import kotlinx.coroutines.launch
+import java.util.ArrayList
+
 class ViewProfileActivity: AppCompatActivity() {
 
     private lateinit var binding: ActivityProfileBinding
@@ -22,6 +26,7 @@ class ViewProfileActivity: AppCompatActivity() {
     private lateinit var btnAddSkills: Button
     private var allowEditing = false
     private lateinit var levels: List<LevelsResponse>
+    private var skills: List<ConsultantSkillsResponse> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +47,8 @@ class ViewProfileActivity: AppCompatActivity() {
 
         btnAddSkills.setOnClickListener {
             val intent = Intent(this@ViewProfileActivity, SkillsListActivity::class.java)
+            intent.putExtra(SkillsListActivity.CONSULTANT_ID, consultantId)
+            intent.putParcelableArrayListExtra(SkillsListActivity.SKILLS, skills as ArrayList<out Parcelable>)
             startActivity(intent)
         }
     }
@@ -69,6 +76,7 @@ class ViewProfileActivity: AppCompatActivity() {
             if(response.isSuccessful) {
                 response.body()?.let {
                     var consultantAdapter = SkillsAdapter(it)
+                    skills = it
                     binding.listview.apply {
                         adapter = consultantAdapter
                         setHasFixedSize(true)

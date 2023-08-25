@@ -34,12 +34,12 @@
             android:id="@+id/name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:textSize="14sp"
+            android:height="48dp"
             android:textAlignment="center"
-            android:textStyle="bold"
             android:textColor="@color/black"
-            tools:text="Java"/>
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="Java" />
 
     </LinearLayout>
 
