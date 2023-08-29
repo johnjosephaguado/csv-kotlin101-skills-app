@@ -12,7 +12,6 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/bottomNavigationView"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
@@ -105,15 +104,16 @@
             android:id="@+id/btnAddSkill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="8dp"
             android:text="Add Skills" />
 
         <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/listview"
-                android:padding="8dp"
+                android:paddingHorizontal="8dp"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
-                app:spanCount="3"
+                app:spanCount="2"
                 tools:listitem="@layout/skill_item" />
 
     </LinearLayout>
