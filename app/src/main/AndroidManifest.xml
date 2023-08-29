@@ -20,6 +20,11 @@
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.SkillsApp">
+        </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:exported="true"
+            android:theme="@style/Theme.SkillsApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
