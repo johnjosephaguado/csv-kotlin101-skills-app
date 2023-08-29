@@ -6,40 +6,54 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="2dp"
+    android:padding="2dp"
     android:elevation="2dp">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="2dp"
-        android:orientation="vertical">
+        android:layout_height="match_parent"
+        android:padding="4dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal">
 
-<!--        <androidx.cardview.widget.CardView-->
-<!--            android:layout_width="40dp"-->
-<!--            android:layout_height="40dp"-->
-<!--            android:layout_gravity="center_horizontal"-->
-<!--            android:layout_margin="2dp"-->
-<!--            app:cardElevation="0dp"-->
-<!--            android:layout_centerHorizontal="true">-->
-<!--            <ImageView-->
-<!--                android:id="@+id/avatar"-->
-<!--                android:src="@drawable/avatar1"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:scaleType="fitCenter" />-->
+        <androidx.cardview.widget.CardView
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="2dp"
+            app:cardElevation="0dp"
+            android:layout_centerHorizontal="true">
+            <ImageView
+                android:id="@+id/logo"
+                android:src="@drawable/placeholder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter" />
 
-<!--        </androidx.cardview.widget.CardView>-->
+        </androidx.cardview.widget.CardView>
 
-        <TextView
-            android:id="@+id/name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="8dp"
-            android:textSize="14sp"
-            android:textAlignment="center"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            tools:text="Java"/>
+            android:layout_marginLeft="4dp"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="14sp"
+                android:textStyle="bold"
+                tools:text="Java" />
+
+            <TextView
+                android:id="@+id/level"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/black"
+                android:textSize="10sp"
+                tools:text="Expert" />
+        </LinearLayout>
 
     </LinearLayout>
 
